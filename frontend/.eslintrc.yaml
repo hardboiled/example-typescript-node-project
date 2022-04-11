@@ -1,0 +1,44 @@
+---
+  root: true
+  parser: '@typescript-eslint/parser'
+  plugins:
+    - prettier
+    - '@typescript-eslint'
+    - 'react-hooks'
+  extends:
+    - 'eslint:recommended'
+    - 'plugin:@typescript-eslint/recommended'
+    - 'plugin:prettier/recommended'
+    - 'plugin:react/recommended'
+    - 'plugin:jest/recommended'
+  overrides:
+    - files:
+      - '*.test.ts'
+      - '*.test.tsx'
+  rules:
+    eqeqeq: error
+    no-console: warn
+    no-undef: off
+    no-unused-vars: error
+    prettier/prettier: error
+    'react/react-in-jsx-scope': off
+    'react/no-children-prop': off
+    'react-hooks/rules-of-hooks': error
+    'react-hooks/exhaustive-deps': warn
+    '@typescript-eslint/explicit-module-boundary-types': off
+    '@typescript-eslint/explicit-function-return-type': off
+    '@typescript-eslint/no-explicit-any': error
+    '@typescript-eslint/no-unused-vars': warn
+  parserOptions:
+    sourceType: module
+    ecmaVersion: 6
+  env:
+    browser: true
+    node: true
+    es6: true
+    jest: true
+  ignorePatterns:
+    - node_modules
+    - build
+    - dist
+    - public

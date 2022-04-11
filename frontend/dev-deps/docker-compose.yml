@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  frontend_proxy:
+    image: nginx:alpine
+    volumes:
+      - ./default.conf.template:/etc/nginx/templates/default.conf.template
+      - ./conf.d/corsheaders.conf:/etc/nginx/conf.d/corsheaders.conf
+    ports:
+      - "9999:80"
