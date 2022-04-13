@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert } from '@mui/material'
+import { Alert, Button, Grid, TextField } from '@mui/material'
 import { getApiBasePath } from '../config'
 
 export const HelloAlias: React.FC = () => {
@@ -28,13 +28,36 @@ export const HelloAlias: React.FC = () => {
   }
 
   return (
-    <form onSubmit={submitHandler}>
-      <label htmlFor="field-name-query">Name</label>
-      <input id="field-name-query" type="text" value={fieldName} onChange={(e) => setFieldName(e.target.value)} />
-      <input type="submit" value="Submit" />
-      {fieldAlias && <p>result: {fieldAlias}</p>}
-      {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
-    </form>
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <p>Type in the field name and submit to get the alias</p>
+      </Grid>
+      <Grid item xs={12}>
+        <form onSubmit={submitHandler}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                label="field name"
+                variant="outlined"
+                value={fieldName}
+                onChange={(e) => setFieldName(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button variant="contained" type="submit" value="Submit">
+                Submit
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Grid>
+      <Grid item xs={12}>
+        <p>
+          {fieldAlias && <span>Result is: {fieldAlias}</span>}
+          {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
+        </p>
+      </Grid>
+    </Grid>
   )
 }
 

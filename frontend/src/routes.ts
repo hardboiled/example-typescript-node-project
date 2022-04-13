@@ -1,14 +1,16 @@
 import React from 'react'
 import HelloAlias from './pages/HelloAlias'
+import Home from './pages/Home'
 
-interface routeProps {
+export interface routeProps {
   path: string
   element: React.FC
+  title: string
 }
 
 const routes: routeProps[] = [
-  { path: '/hello-alias', element: HelloAlias },
-  { path: '/', element: HelloAlias },
+  { path: '/', element: Home, title: 'home' },
+  { path: '/hello-alias', element: HelloAlias, title: 'hello alias' },
 ]
 
 export default routes
