@@ -35,4 +35,8 @@ export class FemaDefinition {
 
   @Column({ default: () => `now()` })
   updatedAt!: Date
+
+  exampleMethodToTest() {
+    return `${this.createdAt},${this.updatedAt}`
+  }
 }
