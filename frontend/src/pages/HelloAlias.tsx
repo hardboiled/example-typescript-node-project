@@ -2,6 +2,20 @@ import React, { useState } from 'react'
 import { Alert, Button, Grid, TextField } from '@mui/material'
 import { getApiBasePath } from '../config'
 
+export const doFetchAlias = async (fieldName: string): Promise<[string, string]> => {
+  try {
+    const res = await fetch(`${getApiBasePath()}/hello-alias?name=${fieldName}`)
+    if (res.status === 404) {
+      return ['', 'name not found']
+    }
+
+    const { alias } = await res.json()
+    return [alias, '']
+  } catch (e) {
+    return ['', 'error making request']
+  }
+}
+
 export const HelloAlias: React.FC = () => {
   const [fieldName, setFieldName] = useState('')
   const [fieldAlias, setFieldAlias] = useState('')
@@ -9,22 +23,9 @@ export const HelloAlias: React.FC = () => {
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault()
-    try {
-      const res = await fetch(`${getApiBasePath()}/hello-alias?name=${fieldName}`)
-      if (res.status === 404) {
-        setFieldAlias('')
-        setErrorMsg('name not found')
-        return
-      }
-
-      const { alias } = await res.json()
-      setFieldAlias(alias)
-      setErrorMsg('')
-    } catch (e) {
-      console.error(e)
-      setFieldAlias('')
-      setErrorMsg('error making request')
-    }
+    const [newAlias, newErrorMsg] = await doFetchAlias(fieldName)
+    setFieldAlias(newAlias)
+    setErrorMsg(newErrorMsg)
   }
 
   return (
@@ -44,7 +45,7 @@ export const HelloAlias: React.FC = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button variant="contained" type="submit" value="Submit">
+              <Button variant="contained" role="button" type="submit" value="Submit">
                 Submit
               </Button>
             </Grid>
@@ -52,10 +53,8 @@ export const HelloAlias: React.FC = () => {
         </form>
       </Grid>
       <Grid item xs={12}>
-        <p>
-          {fieldAlias && <span>Result is: {fieldAlias}</span>}
-          {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
-        </p>
+        {fieldAlias && <span>Result is: {fieldAlias}</span>}
+        {errorMsg && <Alert severity="error">{errorMsg}</Alert>}
       </Grid>
     </Grid>
   )
