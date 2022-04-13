@@ -22,7 +22,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "(cd dev-deps && docker-compose up -d) && react-scripts start",
+    "start": "(cd dev-deps && docker-compose -p LANDLORD_FRONTEND up -d) && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
