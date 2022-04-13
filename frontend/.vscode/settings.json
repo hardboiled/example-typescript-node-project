@@ -5,8 +5,11 @@
       "typescript",
       "typescriptreact",
     ],
+    "[typescript,typescriptreact]": {
+      "editor.tabSize": 2,
+      "editor.insertSpaces": true
+    },
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true,
     },
-    "editor.insertSpaces": true
   }
