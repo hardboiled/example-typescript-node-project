@@ -25,7 +25,7 @@
   "scripts": {
     "lint": "eslint --cache \"src/**/*.ts\"",
     "lint:fix": "eslint --cache --fix \"src/**/*.ts\"",
-    "start": "ts-node src/index.ts",
+    "start": "(cd dev-deps && docker-compose up -d) && ts-node src/index.ts",
     "typeorm": "typeorm-ts-node-commonjs -d ./src/data-source.ts"
   }
 }

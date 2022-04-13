@@ -1,23 +1,30 @@
 import React, { useState } from 'react'
 import { Alert } from '@mui/material'
+import { getApiBasePath } from '../config'
 
 export const HelloAlias: React.FC = () => {
   const [fieldName, setFieldName] = useState('')
   const [fieldAlias, setFieldAlias] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
 
-  const submitHandler = (e: React.FormEvent) => {
+  const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault()
-    fetch(`http://localhost:9999/dev/hello-alias?name=${fieldName}`)
-      .then((res) => {
-        res
-          .json()
-          .then(({ alias }) => {
-            setFieldAlias(alias)
-          })
-          .catch(() => setErrorMsg('unparsable json'))
-      })
-      .catch(() => setErrorMsg('not found'))
+    try {
+      const res = await fetch(`${getApiBasePath()}/hello-alias?name=${fieldName}`)
+      if (res.status === 404) {
+        setFieldAlias('')
+        setErrorMsg('name not found')
+        return
+      }
+
+      const { alias } = await res.json()
+      setFieldAlias(alias)
+      setErrorMsg('')
+    } catch (e) {
+      console.error(e)
+      setFieldAlias('')
+      setErrorMsg('error making request')
+    }
   }
 
   return (
