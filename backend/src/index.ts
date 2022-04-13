@@ -1,30 +1,12 @@
-import express, { Express, Request, Response } from 'express'
+import express from 'express'
 import { AppDataSource } from './data-source'
-import { FemaDefinition } from './entity/FemaDefinition.entity'
+import FemaDefinitionRoutes from './routes/FemaDefinition.routes'
 
-const app: Express = express()
+const app = express()
 const port = process.env.PORT || 5000
 
 app.use(express.json())
-
-app.get('/hello-alias', async (req: Request, res: Response) => {
-  const fieldName = (req.query.name || '').toString()
-  if (!fieldName) {
-    res.status(422).send({ errors: ['name of fema definition must be provided'] })
-    return
-  }
-  const result = await AppDataSource.manager.findOneBy(FemaDefinition, {
-    fieldName,
-  })
-
-  if (!result) {
-    res.writeHead(404)
-    res.end()
-    return
-  }
-
-  res.send({ alias: result.fieldAlias })
-})
+app.use('/fema_definition', FemaDefinitionRoutes)
 
 AppDataSource.initialize()
   .then(() => {

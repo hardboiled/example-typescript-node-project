@@ -4,7 +4,7 @@ import { getApiBasePath } from '../config'
 
 export const doFetchAlias = async (fieldName: string): Promise<[string, string]> => {
   try {
-    const res = await fetch(`${getApiBasePath()}/hello-alias?name=${fieldName}`)
+    const res = await fetch(`${getApiBasePath()}/fema_definition/hello-alias?name=${fieldName}`)
     if (res.status === 404) {
       return ['', 'name not found']
     }
