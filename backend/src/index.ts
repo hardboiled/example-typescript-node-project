@@ -1,12 +1,14 @@
 import express from 'express'
 import { AppDataSource } from './data-source'
 import FemaDefinitionRoutes from './routes/FemaDefinition.routes'
+import UnderwritingRoutes from './routes/Underwriting.routes'
 
 const app = express()
 const port = process.env.PORT || 5000
 
 app.use(express.json())
 app.use('/fema_definition', FemaDefinitionRoutes)
+app.use('/underwriting', UnderwritingRoutes)
 
 AppDataSource.initialize()
   .then(() => {
